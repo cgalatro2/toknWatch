@@ -3,7 +3,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Provider as authProvider } from "~/context/AuthContext";
+import {
+  Context as AuthContext,
+  Provider as AuthProvider,
+} from "~/context/AuthContext";
 
 import HomeScreen from "~/screens/HomeScreen";
 import AccountScreen from "~/screens/AccountScreen";
@@ -14,12 +17,12 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const isLoggedIn = true;
+  const { state } = React.useContext(AuthContext);
 
   return (
     <SafeAreaProvider>
       <NavigationContainer>
-        {isLoggedIn ? (
+        {state.token ? (
           <Tab.Navigator initialRouteName="Home">
             <Tab.Screen
               name="Home"
@@ -35,14 +38,14 @@ function App() {
         ) : (
           <Stack.Navigator>
             <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{ title: "Log In" }}
-            />
-            <Stack.Screen
               name="Sign Up"
               component={SignupScreen}
               options={{ title: "Sign Up" }}
+            />
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{ title: "Log In" }}
             />
           </Stack.Navigator>
         )}
@@ -51,4 +54,8 @@ function App() {
   );
 }
 
-export default App;
+export default () => (
+  <AuthProvider>
+    <App />
+  </AuthProvider>
+);
