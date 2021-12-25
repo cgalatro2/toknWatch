@@ -1,8 +1,18 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
+import { Input, Button } from "react-native-elements";
 
 const SignupScreen = () => {
-  return <Text style={{ fontSize: 48 }}>SignupScreen</Text>;
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  return (
+    <>
+      <Input label="Email" />
+      <Input label="Password" />
+      <Button title="Sign Up" />
+    </>
+  );
 };
 
 const styles = StyleSheet.create({});

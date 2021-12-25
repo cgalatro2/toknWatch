@@ -1,10 +1,20 @@
-import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
+import { Text, Input, Button } from "react-native-elements";
 
-const LogninScreen = () => {
-  return <Text style={{ fontSize: 48 }}>LogninScreen</Text>;
+const LoginScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  return (
+    <>
+      <Input label="Email" />
+      <Input label="Password" />
+      <Button title="Sign Up" />
+    </>
+  );
 };
 
 const styles = StyleSheet.create({});
 
-export default LogninScreen;
+export default LoginScreen;

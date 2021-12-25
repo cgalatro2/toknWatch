@@ -1,17 +1,11 @@
 import React from "react";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Button } from "react-native";
 
-import { createNativeStackNavigator } from "@react-navigation/bottom-tabs";
-
-const Stack = createNativeStackNavigator();
-
-const AccountScreen = ({ navigation }) => {
+const AccountScreen = () => {
   return (
-    <Stack.Navigator>
-      <View>
-        <Text style={{ fontSize: 48 }}>Account Scrizzy</Text>
-      </View>
-    </Stack.Navigator>
+    <View>
+      <Text style={{ fontSize: 48 }}>Account Scrizzy</Text>
+    </View>
   );
 };
 
