@@ -14,6 +14,16 @@ const authReducer = (state, action) => {
         errorMessage: "",
         token: action.payload,
       };
+    case "LOGIN":
+      return {
+        errorMessage: "",
+        token: action.payload,
+      };
+    case "LOGOUT":
+      return {
+        errorMessage: "",
+        token: null,
+      };
     default:
       return state;
   }
@@ -37,44 +47,31 @@ const signup =
     }
   };
 
-const signin =
+const login =
   (dispatch) =>
   async ({ email, password }) => {
     try {
-      const response = await api.post("/signin", { email, password });
+      const response = await api.post("/login", { email, password });
       await AsyncStorage.setItem("token", response.data.token);
       dispatch({
-        type: "SIGNIN",
+        type: "LOGIN",
         payload: response.data.token,
       });
     } catch (err) {
       dispatch({
         type: "ADD_ERROR",
-        payload: "Something went wrong with sign up",
+        payload: `Something went wrong with login`,
       });
     }
   };
 
-const logout =
-  (dispatch) =>
-  async ({ email, password }) => {
-    try {
-      const response = await api.post("/logout", { email, password });
-      await AsyncStorage.setItem("token", response.data.token);
-      dispatch({
-        type: "LOGOUT",
-        payload: response.data.token,
-      });
-    } catch (err) {
-      dispatch({
-        type: "ADD_ERROR",
-        payload: "Something went wrong with sign up",
-      });
-    }
-  };
+const logout = (dispatch) => async () => {
+  await AsyncStorage.removeItem("token");
+  dispatch({ type: "LOGOUT" });
+};
 
 export const { Provider, Context } = createDataContext(
   authReducer,
-  { signup, signin, logout },
+  { signup, login, logout },
   { token: null, errorMessage: "" }
 );

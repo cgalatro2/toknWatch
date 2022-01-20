@@ -1,15 +1,15 @@
 import React, { useState, useContext } from "react";
-import { StyleSheet, Text } from "react-native";
-import { Input, Button } from "react-native-elements";
+import { StyleSheet, Text, View } from "react-native";
+import { Input, Button, Divider } from "react-native-elements";
 import { Context as AuthContext } from "~/context/AuthContext";
 
-const SignupScreen = () => {
+const SignupScreen = ({ navigation }) => {
   const { state, signup } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
-    <>
+    <View style={styles.container}>
       <Input
         label="Email"
         value={email}
@@ -28,15 +28,22 @@ const SignupScreen = () => {
         <Text style={styles.errorMessage}>{state.errorMessage}</Text>
       ) : null}
       <Button title="Sign Up" onPress={() => signup({ email, password })} />
-    </>
+      <Divider style={styles.divider} />
+      <Button
+        title="Have an account? Click to log in"
+        onPress={() => navigation.navigate("Login")}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    marginBottom: 250,
+    marginTop: 10,
+  },
+  divider: {
+    marginVertical: 10,
   },
   errorMessage: {
     fontSize: 16,

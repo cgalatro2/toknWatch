@@ -19,6 +19,8 @@ const Stack = createNativeStackNavigator();
 function App() {
   const { state } = React.useContext(AuthContext);
 
+  console.log("token:", state.token);
+
   return (
     <SafeAreaProvider>
       <NavigationContainer>
@@ -38,14 +40,14 @@ function App() {
         ) : (
           <Stack.Navigator>
             <Stack.Screen
-              name="Sign Up"
-              component={SignupScreen}
-              options={{ title: "Sign Up" }}
-            />
-            <Stack.Screen
               name="Login"
               component={LoginScreen}
               options={{ title: "Log In" }}
+            />
+            <Stack.Screen
+              name="Sign Up"
+              component={SignupScreen}
+              options={{ title: "Sign Up" }}
             />
           </Stack.Navigator>
         )}
